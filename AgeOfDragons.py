@@ -114,6 +114,58 @@ def destroy_walls(wall_healths: list[int]) -> list[int]:
             new_wall_healths.append(wall_health)
     return new_wall_healths
 
+class Wizard:
+    def __init__(self, name: str, stamina: int, intelligence: int) -> None:
+        self.name = name
+        self.__stamina = stamina
+        self.__intelligence = intelligence
+        self.mana = self.__intelligence * 10
+        self.health = self.__stamina * 100
+
+    def cast_fireball(
+        self, target: "Wizard", fireball_cost: int, fireball_damage: int
+    ) -> None:
+        if self.mana < fireball_cost:
+            raise Exception(f"{self.name} cannot cast fireball")
+        else:
+            self.mana -= fireball_cost
+            target.get_fireballed(fireball_damage)
+
+    def is_alive(self) -> bool:
+        return self.health > 0
+
+    def get_fireballed(self, fireball_damage: int) -> None:
+        fireball_damage -= self.__stamina
+        self.health -= fireball_damage
+
+    def drink_mana_potion(self, potion_mana: int) -> None:
+        potion_mana += self.__intelligence
+        self.mana += potion_mana
+
+
+class BankAccount:
+    def __init__(self, account_number: str, initial_balance: float) -> None:
+        self.__account_number = account_number
+        self.__balance = initial_balance
+
+    def get_account_number(self) -> str:
+        return self.__account_number
+
+    def get_balance(self) -> float:
+        return self.__balance
+
+    def deposit(self, amount: float) -> None:
+        if amount <= 0:
+            raise ValueError("cannot deposit zero or negative funds")
+        self.__balance += amount
+
+    def withdraw(self, amount: float) -> None:
+        if amount <= 0:
+            raise ValueError("cannot withdraw zero or negative funds")
+        if self.__balance < amount:
+            raise ValueError("insufficient funds")
+        self.__balance -= amount
+
 
 def fight_soldiers(soldier_one: Soldier, soldier_two: Soldier) -> str:
     soldier_one_dps = get_soldier_dps(soldier_one)
