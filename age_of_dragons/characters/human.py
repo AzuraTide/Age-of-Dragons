@@ -1,5 +1,6 @@
 class Human:
-    def __init__(self, pos_x: int, pos_y: int, speed: int, stamina: int) -> None:
+    def __init__(self, name: str, pos_x: int, pos_y: int, speed: int, stamina: int) -> None:
+        self.__name = name
         self.__pos_x = pos_x
         self.__pos_y = pos_y
         self.__speed = speed
@@ -23,9 +24,9 @@ class Human:
     def sprint_right(self) -> None:
         if self.__stamina <= 0:
             self.__raise_if_cannot_sprint()
-            self.__use_sprint_stamina()
-            self.move_right()
-            self.move_right()
+        self.__use_sprint_stamina()
+        self.move_right()
+        self.move_right()
 
     def sprint_left(self) -> None:
         if self.__stamina <= 0:
@@ -53,3 +54,6 @@ class Human:
 
     def __use_sprint_stamina(self) -> None:
         self.__stamina -= 1
+
+    def get_name(self) -> str:
+        return self.__name

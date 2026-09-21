@@ -1,27 +1,28 @@
-class Wizard:
-    def __init__(self, name: str, stamina: int, intelligence: int) -> None:
-        self.name = name
-        self.__stamina = stamina
+from .hero import Hero
+
+class Wizard(Hero):
+    def __init__(self, name: str, health: int, intelligence: int, mana: int, stamina: int) -> None:
+        super().__init__(name, health)
         self.__intelligence = intelligence
-        self.mana = self.__intelligence * 10
-        self.health = self.__stamina * 100
+        self.__mana = mana
+        self.__stamina = stamina
 
     def cast_fireball(
         self, target: "Wizard", fireball_cost: int, fireball_damage: int
     ) -> None:
-        if self.mana < fireball_cost:
-            raise Exception(f"{self.name} cannot cast fireball")
+        if self.__mana < fireball_cost:
+            raise Exception(f"{self.get_name()} cannot cast fireball")
         else:
-            self.mana -= fireball_cost
+            self.__mana -= fireball_cost
             target.get_fireballed(fireball_damage)
 
     def is_alive(self) -> bool:
-        return self.health > 0
+        return self.get_health() > 0
 
     def get_fireballed(self, fireball_damage: int) -> None:
         fireball_damage -= self.__stamina
-        self.health -= fireball_damage
+        self.take_damage(fireball_damage)
 
     def drink_mana_potion(self, potion_mana: int) -> None:
         potion_mana += self.__intelligence
-        self.mana += potion_mana
+        self.__mana += potion_mana
