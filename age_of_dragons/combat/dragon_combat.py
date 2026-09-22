@@ -2,10 +2,10 @@ from age_of_dragons.characters.dragon import Dragon
 
 def main() -> None:
     dragons = [
-        Dragon("Green Dragon", 0, 0, 1),
-        Dragon("Red Dragon", 2, 2, 2),
-        Dragon("Blue Dragon", 4, 3, 3),
-        Dragon("Black Dragon", 5, -1, 4),
+        Dragon("Green Dragon", 0, 0, 10, 10, 1),
+        Dragon("Red Dragon", 2, 2, 0, 10, 2),
+        Dragon("Blue Dragon", 4, 3, 10, 10, 3),
+        Dragon("Black Dragon", 5, -1, 10, 10, 4),
     ]
 
     for dragon in dragons:
